@@ -49,7 +49,7 @@ public class MainPresenter {
                                 } else {
                                     ArrayList<Room> array = new ArrayList<>();
                                     array.add(result);
-                                    subCategory.put(result.getId(), array);
+                                    subCategory.put(result.getParent_room_id(), array);
                                 }
                             }
                         }
