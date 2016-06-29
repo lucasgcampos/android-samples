@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public class Room implements Parcelable {
 
-    private Long id;
-    private Long parent_room_id;
+    private Integer id;
+    private Integer parent_room_id;
     private String name;
     private String meta_title;
     private String meta_description;
@@ -20,7 +20,7 @@ public class Room implements Parcelable {
     private String slug;
     private ArrayList<Room> subCategories = new ArrayList<>();
 
-    public Room(long id, Long parent_room_id, String name, String meta_title, String meta_description, boolean show_on_home_page, String slug) {
+    public Room(Integer id, Integer parent_room_id, String name, String meta_title, String meta_description, boolean show_on_home_page, String slug) {
         this.id = id;
         this.parent_room_id = parent_room_id;
         this.name = name;
@@ -34,11 +34,11 @@ public class Room implements Parcelable {
         return subCategories;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,11 +50,11 @@ public class Room implements Parcelable {
         this.name = name;
     }
 
-    public Long getParent_room_id() {
+    public Integer getParent_room_id() {
         return parent_room_id;
     }
 
-    public void setParent_room_id(Long parent_room_id) {
+    public void setParent_room_id(Integer parent_room_id) {
         this.parent_room_id = parent_room_id;
     }
 
@@ -84,8 +84,8 @@ public class Room implements Parcelable {
     }
 
     protected Room(Parcel in) {
-        this.id = (Long) in.readValue(Long.class.getClassLoader());
-        this.parent_room_id = (Long) in.readValue(Long.class.getClassLoader());
+        this.id = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.parent_room_id = (Integer) in.readValue(Integer.class.getClassLoader());
         this.name = in.readString();
         this.meta_title = in.readString();
         this.meta_description = in.readString();

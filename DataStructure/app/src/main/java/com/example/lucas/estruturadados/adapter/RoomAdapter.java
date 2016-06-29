@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lucas.estruturadados.R;
-import com.example.lucas.estruturadados.activity.CategoryDetail;
-import com.example.lucas.estruturadados.activity.MainActivity;
+import com.example.lucas.estruturadados.activity.CategoryDetailActivity;
 import com.example.lucas.estruturadados.model.Room;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lucas Campos
@@ -21,9 +22,11 @@ import java.util.List;
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     private final List<Room> rooms;
+    private final Map<Integer, ArrayList<Room>> subCategory;
 
-    public RoomAdapter(List<Room> rooms) {
+    public RoomAdapter(List<Room> rooms, Map<Integer, ArrayList<Room>> subCategory) {
         this.rooms = rooms;
+        this.subCategory = subCategory;
     }
 
     public RoomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,12 +37,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Room room = rooms.get(position);
+
         holder.name.setText(room.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(holder.itemView.getContext(), CategoryDetail.class);
-                intent.putParcelableArrayListExtra("subcategories", room.getSubCategories());
+                Intent intent = new Intent(holder.itemView.getContext(), CategoryDetailActivity.class);
+                intent.putParcelableArrayListExtra("subcategories", subCategory.get(room.getId()));
                 holder.itemView.getContext().startActivity(intent);
             }
         });

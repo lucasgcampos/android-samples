@@ -13,7 +13,9 @@ import com.example.lucas.estruturadados.presenter.MainPresenter;
 import com.example.lucas.estruturadados.services.RoomService;
 import com.example.lucas.estruturadados.view.MainView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void fillRecycler(List<Room> rooms) {
-        recyclerView.setAdapter(new RoomAdapter(rooms));
+    public void fillRecycler(List<Room> rooms, Map<Integer, ArrayList<Room>> subCategory) {
+        recyclerView.setAdapter(new RoomAdapter(rooms, subCategory));
     }
 }

@@ -5,7 +5,9 @@ import com.example.lucas.estruturadados.services.RoomService;
 import com.example.lucas.estruturadados.view.MainView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -32,15 +34,29 @@ public class MainPresenter {
         response.subscribeOn(io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<Room>>() {
-            @Override
-            public void call(List<Room> results) {
+                    @Override
+                    public void call(List<Room> results) {
 
-                List<Room> categories = getCategories(results);
-                fillCategories(results, categories);
+                        List<Room> categories = new ArrayList<Room>();
+                        Map<Integer, ArrayList<Room>> subCategory = new HashMap<>();
 
-                view.fillRecycler(categories);
-            }
-        });
+                        for (Room result : results) {
+                            if (result.getParent_room_id() == null) {
+                                categories.add(result);
+                            } else {
+                                if (subCategory.containsKey(result.getId())) {
+                                    subCategory.get(result.getId()).add(result);
+                                } else {
+                                    ArrayList<Room> array = new ArrayList<>();
+                                    array.add(result);
+                                    subCategory.put(result.getId(), array);
+                                }
+                            }
+                        }
+
+                        view.fillRecycler(categories, subCategory);
+                    }
+                });
 
     }
 
